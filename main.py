@@ -11,21 +11,45 @@
 # - Räkna antalet unika ord (alltså ord som bara förekommer en gång)
 
 
-def read_from_file(path: str):
-    """Reads a file with the given parameter path and returns the file as a list of strings, split on newline (\n).
+def read_from_file(path: str): #https://www.geeksforgeeks.org/python-program-to-count-words-in-text-file/
 
-    Args:
-        path (str): the path of the readable file
+    with open(path, "r" ,encoding="utf-8") as f: 
+        data=f.read()
+        words=data.split()
+        return words
 
-    Returns:
-        list(str): list of strings
-    """
-    with open(path, "r" ,encoding="utf-8") as f:
-        return f.readlines()
+        
+def most_frequent(words): #https://www.geeksforgeeks.org/python-find-most-frequent-element-in-a-list/
+    
+    counter=0
+    num=words[0]
+    for i in words:
+        curr_frequency = words.count(i)
+        if(curr_frequency> counter):
+            counter = curr_frequency
+            num = i
+    return num
+
+ 
+
+def word_length(words):
+    total_length=sum(len(word)for word in words)
+    return total_length/len(words)
 
 def main():
-    
-    sentences = read_from_file("en_resa_genom_svenska_skogen.txt") # Här har du nu en lista av strängar från den inlästa filen.
 
+    words=read_from_file("en_resa_genom_svenska_skogen.txt")
+    
+    number_of_words=len(words)
+    print(f'{number_of_words}')
+
+    most_common_word=most_frequent(words)
+    print(f'{most_common_word}')
+
+    average_length=word_length(words)
+    print(f'{average_length}')
+
+
+    
 if __name__ == "__main__":
     main()
